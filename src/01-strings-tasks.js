@@ -159,8 +159,8 @@ function unbracketTag(a) {
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-function convertToUpperCase(/* str */) {
-  throw new Error('Not implemented');
+function convertToUpperCase(a) {
+  return a.toUpperCase();
 }
 
 /**
@@ -178,8 +178,8 @@ function convertToUpperCase(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(a) {
+  return a.split(';');
 }
 
 /**
@@ -205,8 +205,11 @@ function extractEmails(/* str */) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(w, h) {
+  const x = '─'.repeat(w - 2);
+  const middle = ' '.repeat(w - 2);
+  const y = `\n│${middle}│`;
+  return `┌${x}┐${y.repeat(h - 2)}\n└${x}┘\n`;
 }
 
 
@@ -226,8 +229,25 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(a) {
+  const alphabethStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz !?';
+  const newAlphabeth = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm !?';
+  const alphabethArray = alphabethStr.split('');
+  const newArray = newAlphabeth.split('');
+  const array = a.split('');
+  const result = [];
+  array.forEach((el) => {
+    for (let i = 0; i < newArray.length; i += 1) {
+      if (el === newArray[i]) {
+        result.push(newArray.indexOf(newArray[i]));
+      }
+    }
+  });
+  const string = [];
+  result.forEach((el) => {
+    string.push(alphabethArray[el]);
+  });
+  return string.join('');
 }
 
 /**
@@ -243,8 +263,8 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(a) {
+  return (typeof a === 'string' || a instanceof String);
 }
 
 
@@ -272,8 +292,15 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(a) {
+  let index;
+  const array = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  for (let i = 0; i < array.length; i += 1) {
+    if (a === array[i]) {
+      index = i;
+    }
+  }
+  return index;
 }
 
 
