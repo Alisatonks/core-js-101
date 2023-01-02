@@ -316,8 +316,16 @@ function isCreditCardNumber(ccn) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+
+
+function getDigitalRoot(num) {
+  if (num.toString().length === 1) {
+    return num;
+  }
+  const array = num.toString().split('');
+  const array1 = array.map((el) => Number(el));
+  const sum1 = array1.reduce((acc, curr) => acc + curr);
+  return getDigitalRoot(sum1);
 }
 
 
@@ -342,8 +350,29 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+
+
+function isBracketsBalanced(str) {
+  const openingBrackets = ['(', '{', '[', '<'];
+  const pairs = {
+    '[': ']',
+    '{': '}',
+    '(': ')',
+    '<': '>',
+  };
+
+  const stack = [];
+  const pairsClose = Object.values(pairs);
+
+  for (let i = 0; i < str.length; i += 1) {
+    const currentBracket = str[i];
+    if (openingBrackets.includes(currentBracket)) {
+      stack.push(currentBracket);
+    } else if (pairsClose.includes(currentBracket) && pairs[stack.pop()] !== currentBracket) {
+      return false;
+    }
+  }
+  return stack.length === 0;
 }
 
 
@@ -367,8 +396,10 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+
+
+function toNaryString(input, target) {
+  return input.toString(target);
 }
 
 
@@ -384,8 +415,19 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+
+function getCommonDirectoryPath(pathes) {
+  const array = pathes.map((el) => el.split('/'));
+  const resArr = [];
+
+  for (let i = 0; i < array[0].length; i += 1) {
+    let forPush;
+    for (let j = 1; j < array.length; j += 1) {
+      forPush = array[0][i] === array[j][i];
+    }
+    if (forPush) resArr.push(array[0][i]);
+  }
+  return resArr.length ? `${resArr.join('/')}/` : '';
 }
 
 
